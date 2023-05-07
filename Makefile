@@ -6,7 +6,7 @@ all: 1m-block
 proto_structures.o : proto_structures.cpp proto_structures.h
 	g++ -c -o proto_structures.o proto_structures.cpp
 main.o : main.cpp proto_structures.h
-	g++ -c -o main.o main.cpp
+	g++ -c -o main.o main.cpp -Wno-multichar
 
 clean :
 	rm -f *.tmp.bin

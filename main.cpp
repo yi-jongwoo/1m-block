@@ -57,7 +57,8 @@ namespace jw{
 	};
 	
 	struct stringmatch:private std::vector<uint64_t>{
-		stringmatch(std::string filename){
+		void load(std::string filename){
+			clear();
 			int flag=1;
 			try{
 				flag=std::filesystem::last_write_time(std::filesystem::path(filename))
@@ -136,7 +137,7 @@ constexpr int is_little_endian(){
 	return *(uint8_t*)&x;
 }
 
-jw::stringmatch forbidden("./top-1m.csv");
+jw::stringmatch forbidden;
 
 struct tcp_port{
 	static const int siz=2;
@@ -206,6 +207,11 @@ static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 
 int main(int argc, char **argv)
 {
+	if(argc!=2){
+		printf("u : 1m-block <site list file>\n");
+		exit(0);
+	}
+	forbidden.load("./top-1m.csv");
 	struct nfq_handle *h;
 	struct nfq_q_handle *qh;
 	struct nfnl_handle *nh;
