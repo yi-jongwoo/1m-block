@@ -1,3 +1,4 @@
+#pragma GCC optimize("O3")
 #include "proto_structures.h"
 #include <cstdlib>
 #include <unistd.h>
